@@ -7,7 +7,7 @@ $dbname = 'world';
 // $stmt = $conn->query("SELECT * FROM countries");
 // $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-function displayTable($results){
+function displayCountry($results){
   echo(
     "<table>".
       "<tr>".
@@ -26,39 +26,100 @@ function displayTable($results){
   );
 }
 
+function displayCity($results){
+  echo(
+    "<table>".
+      "<tr>".
+        "<th>Name</th> <th>District</th> <th>Population</th>"
+  );
+  
+  foreach ($results as $row){
+    echo "<tr>";
+    echo "<td>".$row['name']."</td>" . "<td>".$row['district']."</td>" . "<td>".$row['population']."</td>";
+    echo "</tr>";
+  }
+  
+  echo(
+      "</tr>".
+    "</table>"
+  );
+}
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
   $userInput = filter_input(INPUT_GET, 'country', FILTER_SANITIZE_STRING);
+  $lookup = $_GET['lookup'];
 
-  if(empty($userInput)){
-    //IF INPUT IS EMPTY THEN SEARCH FOR ALL COUNTRIES
-    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-    $stmt = $conn->query("SELECT * FROM countries");
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  if($lookup == "country")
+  {
+    if(empty($userInput)){
+      //IF INPUT IS EMPTY THEN SEARCH FOR ALL COUNTRIES
+      $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+      $stmt = $conn->query("SELECT * FROM countries");
+      $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+      echo "<h2>Results</h2>";
+      echo "<hr>";
 
-    displayTable($results);
+      displayCountry($results);
+    }
+  
+    else{
+      //SEARCH FOR ENTERED COUNTRY
+      $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+      $stmt = $conn->prepare("SELECT * FROM countries WHERE name LIKE :userInput");
+      $stmt->bindValue(':userInput', "%$userInput%", PDO::PARAM_STR);
+      $stmt->execute();
+      $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+      echo "<h2>Results</h2>";
+      echo "<hr>";
+
+      if(count($results) > 0){
+        displayCountry($results);
+      }
+      else{
+        echo "<p>No Results Found<p>";
+        echo "<p>Enter a valid country or check spelling.<p>";
+      }
+      
+  
+    }
   }
+  
+  if($lookup == "city")
+  {
+    if(empty($userInput)){
+      //IF INPUT IS EMPTY THEN SEARCH FOR ALL COUNTRIES
+      echo "<h2>Results</h2>";
+      echo "<hr>";
 
-  else{
-    //SEARCH FOR ENTERED COUNTRY
-    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-    $stmt = $conn->prepare("SELECT * FROM countries WHERE name LIKE :userInput");
-    $stmt->bindValue(':userInput', "%$userInput%", PDO::PARAM_STR);
-    $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      echo "<p>No Results Found<p>";
+      echo "<p>Enter a valid country.<p>";
 
-    displayTable($results);
+    }
+  
+    else{
+      //SEARCH FOR ENTERED COUNTRY
+      $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+      $stmt = $conn->prepare("SELECT cities.name, cities.district, cities.population FROM cities INNER JOIN countries ON  countries.code = cities.country_code WHERE countries.name LIKE :userInput");
+      $stmt->bindValue(':userInput', "$userInput", PDO::PARAM_STR);
+      $stmt->execute();
+      $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      
+      echo "<h2>Results</h2>";
+      echo "<hr>";
 
+      if(count($results) > 0){
+        displayCity($results);
+      }
+      else{
+        echo "<p>No Results Found<p>";
+        echo "<p>Enter a valid country or check spelling.<p>";
+      }
+  
+    }
   }
-
 }
-
-
-// echo "<ul>";
-// foreach ($results as $row){
-//   echo "<li>".$row['name'] . ' is ruled by ' . $row['head_of_state']. "</li>";
-// }
-// echo "</ul>";
 
 ?>

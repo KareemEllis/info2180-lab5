@@ -1,17 +1,19 @@
-window.addEventListener("load", () => {
-    
-    const lookupBtn = document.querySelector("#lookup")
+window.addEventListener('load', (event) => {
+
+    const countryBtn = document.getElementById("lookupCountry")
+    const cityBtn = document.querySelector("#lookupCity")
     const resultDiv = document.querySelector("#result")
     const inputField = document.querySelector("#country")
 
-    lookupBtn.addEventListener("click", (e) => {
-        e.preventDefault()
-        alert("Clicked!")
+    console.log(countryBtn)
 
-        let userInput = inputField.value;
+    countryBtn.addEventListener("click", (e) => {
+        e.preventDefault()
+
+        let userInput = inputField.value
         userInput.trim()
 
-        let url = `world.php?country=${userInput}`
+        let url = `world.php?country=${userInput}&lookup=country`
 
         fetch(url)
         .then(response => {
@@ -25,4 +27,23 @@ window.addEventListener("load", () => {
         .catch(error => console.log(`ERROR HAS OCCURRED: ${error}`))
     })
 
+    cityBtn.addEventListener("click", (e) => {
+        e.preventDefault()
+
+        let userInput = inputField.value;
+        userInput.trim()
+
+        let url = `world.php?city=${userInput}&lookup=city`
+
+        fetch(url)
+        .then(response => {
+            if(response.ok){return response.text()}
+            else{return Promise.reject('Something was wrong with fetch request!')}
+        })
+        .then(data => {
+            alert(data)
+            resultDiv.innerHTML = data
+        })
+        .catch(error => console.log(`ERROR HAS OCCURRED: ${error}`))
+    })
 })

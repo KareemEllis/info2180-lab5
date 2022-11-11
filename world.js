@@ -33,7 +33,7 @@ window.addEventListener('load', (event) => {
         let userInput = inputField.value;
         userInput.trim()
 
-        let url = `world.php?city=${userInput}&lookup=city`
+        let url = `world.php?country=${userInput}&lookup=city`
 
         fetch(url)
         .then(response => {

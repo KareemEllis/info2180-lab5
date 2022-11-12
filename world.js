@@ -21,7 +21,6 @@ window.addEventListener('load', (event) => {
             else{return Promise.reject('Something was wrong with fetch request!')}
         })
         .then(data => {
-            alert(data)
             resultDiv.innerHTML = data
         })
         .catch(error => console.log(`ERROR HAS OCCURRED: ${error}`))
@@ -41,7 +40,6 @@ window.addEventListener('load', (event) => {
             else{return Promise.reject('Something was wrong with fetch request!')}
         })
         .then(data => {
-            alert(data)
             resultDiv.innerHTML = data
         })
         .catch(error => console.log(`ERROR HAS OCCURRED: ${error}`))

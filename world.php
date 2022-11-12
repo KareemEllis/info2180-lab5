@@ -10,6 +10,12 @@ $dbname = 'world';
 function displayCountry($results){
   echo(
     "<table>".
+    "<colgroup>".
+      "<col style=\"width:40%\">".
+      "<col style=\"width:20%\">".
+      "<col style=\"width:10%\">".
+      "<col style=\"width:30%\">".
+    "</colgroup>".
       "<thead>".
         "<tr>".
           "<th>Name</th> <th>Continent</th> <th>Independence</th> <th>Head of State</th>".
@@ -33,6 +39,11 @@ function displayCountry($results){
 function displayCity($results){
   echo(
     "<table>".
+    "<colgroup>".
+      "<col style=\"width:40%\">".
+      "<col style=\"width:40%\">".
+      "<col style=\"width:20%\">".
+    "</colgroup>".
       "<thead>".
         "<tr>".
           "<th>Name</th> <th>District</th> <th>Population</th>".

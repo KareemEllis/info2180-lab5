@@ -10,8 +10,12 @@ $dbname = 'world';
 function displayCountry($results){
   echo(
     "<table>".
-      "<tr>".
-        "<th>Name</th> <th>Continent</th> <th>Independence</th> <th>Head of State</th>"
+      "<thead>".
+        "<tr>".
+          "<th>Name</th> <th>Continent</th> <th>Independence</th> <th>Head of State</th>".
+        "</tr>".  
+      "</thead>".  
+      "<tbody>"
   );
   
   foreach ($results as $row){
@@ -21,7 +25,7 @@ function displayCountry($results){
   }
   
   echo(
-      "</tr>".
+      "<tbody>".
     "</table>"
   );
 }
@@ -29,8 +33,12 @@ function displayCountry($results){
 function displayCity($results){
   echo(
     "<table>".
-      "<tr>".
-        "<th>Name</th> <th>District</th> <th>Population</th>"
+      "<thead>".
+        "<tr>".
+          "<th>Name</th> <th>District</th> <th>Population</th>".
+        "</tr>".  
+      "</thead>".  
+      "<tbody>"
   );
   
   foreach ($results as $row){
@@ -40,7 +48,7 @@ function displayCity($results){
   }
   
   echo(
-      "</tr>".
+      "<tbody>".
     "</table>"
   );
 }

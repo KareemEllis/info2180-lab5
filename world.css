@@ -1,1 +1,203 @@
-/* Add your own styles */
+* { 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
+}
+
+:root{
+
+}
+
+body{
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container{
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+}
+
+::selection{
+    
+}
+
+header{
+    background-color: rgb(23, 15, 46);
+    height: 650px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+header .container{
+    display: grid;
+    grid-template-columns: 2.5fr 1.5fr;
+    grid-gap: 20px;
+}
+header .container div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+header h1{
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 60px;
+    color: rgb(189, 255, 222);
+}
+header h2{
+    margin: 0;
+    margin-bottom: 20px;
+}
+header p{
+    margin: 0;
+    margin-bottom: 30px;
+}
+#controls{
+    display: flex;
+    flex-direction: column;
+}
+#controls div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+label{
+    font-weight: 600;
+}
+input{
+    padding: 13px;
+    border-radius: 10px;
+    max-width: 75%;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    border: 0;
+}
+button{
+    padding: 13px;
+    border-radius: 10px;
+    margin-right: 10px;
+    background-color: rgb(55, 147, 101);
+    color: white;
+    font-weight: 600;
+    border: 0;
+    transition: 0.3s;
+}
+button:hover{
+    box-shadow: 2px 2px rgb(150, 220, 185);
+}
+
+#globe{
+    width: 450px;
+    height: 450px;
+    background: #888 url("map.jpg") 0 0 repeat;
+    border-radius: 50%;
+    background-size: 1000px;
+    object-fit: cover;
+    box-shadow: 5px 10px #ff0000;
+    transition: 0.3s;
+
+    animation: rotate 14s linear infinite;
+    transition: transform 200ms linear, width 0.2s, height 0.2s;
+    transform-style: preserve-3d;
+    box-shadow: inset 20px 0 80px 6px rgb(0, 0, 0), 5px 5px rgb(189, 255, 222);
+}
+#globe:hover{
+    width: 470px;
+    height: 470px;
+
+}
+
+@keyframes rotate {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+
+}
+
+/*******************RESULTS*******************/
+#result{
+    text-align: left;
+}
+#result h2{
+    font-size: 30px;
+    margin: 0;
+    margin-bottom: 20px;
+}
+#result p{
+    font-weight: 500;
+    color: red;
+}
+
+table{
+    margin-top: 20px;
+    border-collapse: collapse;
+    font-size: 1em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+thead tr{
+    background-color: rgb(55, 147, 101);
+    color: white;
+    font-weight: bold;
+}
+th,td{
+    padding: 12px 15px;
+}
+
+tbody tr{
+    border-bottom: 1px solid #dddddd;
+}
+tbody tr:hover{
+    font-weight: bold;
+    color: rgb(55, 147, 101);
+}
+
+tbody tr:nth-of-type(even){
+    background-color: #f3f3f3;
+}
+tbody tr:last-of-type{
+    border-bottom: 2px solid rgb(55, 147, 101);
+}
+
+
+/******ON SMALLER SCREENS*******/
+@media screen and (max-width: 900px){
+    #globe{
+        display: none;
+    }
+    header .container{
+        display: flex;
+        text-align: center;
+    }
+    #controls{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #controls input{
+        width: 80%
+    }
+    
+    #controls div{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+}
+
+
+@media screen and (max-width: 600px){
+    .container{
+        padding: 0;
+    }
+}
